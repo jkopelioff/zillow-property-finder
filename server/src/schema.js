@@ -11,6 +11,7 @@ type Result {
   links: [Link!]!
   address: Address!
   zestimate: Zestimate!
+  localrealestate: LocalRealEstate!
 }
 
 type Link {
@@ -27,12 +28,35 @@ type Address {
   longitude: Float!
 }
 
+type Currency {
+  value: Int!
+  type: String!
+}
+
+type ValuationRange {
+  low: Currency!
+  high: Currency!
+}
+
 type Zestimate {
-  amount: Int!
+  amount: Currency!
   lastUpdated: String!
-  oneWeekChange: String!
-  valueChange: String!
-  valueChangeDuration: Int! 
+  valueChange: Currency!
+  valueChangeDuration: Int!
+  valuationRange: ValuationRange!
+  precentile: Int!
+}
+
+type Region {
+  name: String!
+  id: Int!
+  type: String!
+  zindexValue: String!
+  links:[Link!]!
+}
+
+type LocalRealEstate {
+  region: Region! 
 }
 
 type Query {

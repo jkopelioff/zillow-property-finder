@@ -8,7 +8,8 @@ export function getMessageCodeText(raw_object){
   return null
 }
 
-// local functions 
+// local functions - small and testable
+
 function getLinks(links) {
   const ret_array = [];
   for (var key in links) {
@@ -28,13 +29,42 @@ function getAddress(address) {
   }
 }
 
+function getCurrency(currency) {
+  return {'value': currency["_"], 
+  'type': currency["$"]['currency']}
+}
+
+function getValuationRange(valuationRange) {
+  return {
+    'low': getCurrency(valuationRange['low'][0]),
+    'high': getCurrency(valuationRange['high'][0])
+  }
+}
+
+
 function getZestimate(zestimate) {
-
-
+  return {
+    'amount': getCurrency(zestimate['amount'][0]), 
+    'lastUpdated': zestimate['last-updated'][0],
+    'valueChange': getCurrency(zestimate['valueChange'][0]),
+    'valueChangeDuration': zestimate['valueChange'][0]["$"]['duration'],
+    'valuationRange': getValuationRange(zestimate['valuationRange'][0]),
+    'percentile': zestimate['percentile']
+  }
 }
 
 function getLocalRealEstate(localRealEstate) {
-  
+  const region = localRealEstate['region'][0]
+
+  return {
+          'region': {
+            'name': region['$']['name'],
+            'id': region['$']['id'],
+            'type': region['$']['type'],
+            'zindexValue': region['zindexValue'][0],
+            'links': getLinks(region['links'][0])
+          }
+        }
 }
 
 // main property function
@@ -51,6 +81,6 @@ export function getPropertyInfo(raw_object) {
           'links': links, 
           'address': address,
           'zestimate': zestimate,
-          'localRealEstate': localRealEstate
+          'localrealestate': localRealEstate
         }
 }
