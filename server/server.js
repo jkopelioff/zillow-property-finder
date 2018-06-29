@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 
 import { schema } from './src/schema';
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const server = express();
 
 server.use('*', cors({ origin: process.env.CORS_URL || 'http://localhost:3000' }));
