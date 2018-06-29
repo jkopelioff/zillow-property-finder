@@ -1,2 +1,2 @@
 web: npm start --prefix client
-api: node build/server.js --prefix server -p $PORT
+api: npm start --prefix server -p 3000

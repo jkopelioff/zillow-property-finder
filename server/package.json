@@ -4,7 +4,8 @@
   "description": "A simple GraphQL server",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server.js --exec babel-node -e js",
+    "start": "node build/server.js",
+    "dev": "nodemon ./server.js --exec babel-node -e js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-server": "babel -d ./build ./src -s",
     "clean": "rm -rf build && mkdir build",
