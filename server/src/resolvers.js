@@ -2,10 +2,10 @@ import fetch from 'node-fetch';
 import {parseString} from 'xml2js';
 import { getMessageCodeText, getPropertyInfo } from './helpers';
 
+
+// These probably should be added via ENV vars
 const BASE_URL = 'http://www.zillow.com/webservice/GetSearchResults.htm';
-const API_KEY = 'X1-ZWz1dyb53fdhjf_6jziz'
-
-
+const API_KEY = process.env.API_KEY
 
 function fetchAddressAsJson(address, citystatezip) {
   return new Promise(async (resolve, reject) => {
