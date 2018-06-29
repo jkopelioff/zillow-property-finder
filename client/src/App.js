@@ -1,59 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Map from './components/Map';
+import Header from './components/Header';
+import SearchQuery from './queries/SearchQuery';
 import './App.css';
 
-import ApolloClient from 'apollo-client';
-import { graphql, ApolloProvider } from 'react-apollo';
-import gql from 'graphql-tag';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider }  from 'react-apollo';
+import { Property } from './components/Property';
 
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
-import { mockNetworkInterfaceWithSchema } from 'apollo-test-utils';
-import { typeDefs } from './schema';
-
-const schema = makeExecutableSchema({ typeDefs });
-addMockFunctionsToSchema({ schema });
-
-const mockNetworkInterface = mockNetworkInterfaceWithSchema({ schema });
-
-
-const client = new ApolloClient({
-  networkInterface: mockNetworkInterface,
-});
-
-const ChannelsList = ({ data: {loading, error, channels }}) => {
-  if (loading) {
-    return <p>Loading ...</p>;
-  }
-  if (error) {
-    return <p>{error.message}</p>;
-  }
-
-  return <ul>
-    { channels.map( ch => <li key={ch.id}>{ch.name}</li> ) }
-  </ul>;
-};
-
-const channelsListQuery = gql`
-  query ChannelsListQuery {
-    channels {
-      id
-      name
-    }
-  }
-`;
-
-const ChannelsListWithData = graphql(channelsListQuery)(ChannelsList);
+const client = new ApolloClient({ uri : 'http://localhost:4000/graphql' })
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      address: '',
+      citystatezip: ''
+    }
+
+    this.onSearch = this.onSearch.bind(this)
+  }
+
+  onSearch( address , citystatezip ){
+    this.setState({ address, citystatezip })
+  }
+
   render() {
+    const { address, citystatezip } = this.state
+
     return (
       <ApolloProvider client={client}>
         <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to Apollo</h2>
-          </div>
-          <ChannelsListWithData />
+            <header className="App-header">
+              <Header onSearch={this.onSearch}/>
+            </header>
+            <div className="App-map">
+              <SearchQuery address={address} citystatezip={citystatezip}>
+                { result  => 
+                    <React.Fragment>
+                      <Map {...result}/>
+                      <Property className="App-results" {...result}/>
+                    </React.Fragment>
+                  } 
+              </SearchQuery>
+            </div>
         </div>
       </ApolloProvider>
     );

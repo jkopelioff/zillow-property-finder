@@ -27,6 +27,7 @@ function fetchAddressAsJson(address, citystatezip) {
         const codeText = getMessageCodeText(result)
         if (codeText == null || codeText.code !== "0"){
           reject(codeText)
+          return
         }
 
         resolve(getPropertyInfo(result))

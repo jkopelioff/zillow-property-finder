@@ -44,7 +44,7 @@ type Zestimate {
   valueChange: Currency!
   valueChangeDuration: Int!
   valuationRange: ValuationRange!
-  precentile: Int!
+  percentile: Int
 }
 
 type Region {

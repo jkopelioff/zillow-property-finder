@@ -1,0 +1,15 @@
+.propertyDetails {
+    background-color: #fff;
+    box-shadow: 2px 2px #000;
+    width: 60vw;
+    height: 70vh;
+    z-index: 100;
+    margin-top: 30px;
+    padding: 2rem;
+}
+
+.propertyDetails .links a {
+    display: inline-block;
+    text-decoration: underline;
+    margin: 10px;
+}

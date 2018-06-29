@@ -1,0 +1,12 @@
+.searchBar {
+  margin-left: 2rem;
+}
+
+.searchBar input + input {
+  margin: 1rem;
+}
+
+.searchBar input {
+  width: 30vw;
+  color: #000;
+}

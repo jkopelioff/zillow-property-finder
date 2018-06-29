@@ -49,7 +49,7 @@ function getZestimate(zestimate) {
     'valueChange': getCurrency(zestimate['valueChange'][0]),
     'valueChangeDuration': zestimate['valueChange'][0]["$"]['duration'],
     'valuationRange': getValuationRange(zestimate['valuationRange'][0]),
-    'percentile': zestimate['percentile']
+    'percentile': zestimate['percentile'] || 0
   }
 }
 
