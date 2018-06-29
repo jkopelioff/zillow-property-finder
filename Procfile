@@ -1,2 +1,2 @@
 web: npm start --prefix client
-api: npm start --prefix server -p $PORT
+api: node build/server.js --prefix server -p $PORT
