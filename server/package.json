@@ -1,11 +1,14 @@
 {
-  "name": "tutorial-server",
+  "name": "zfinder-graphql",
   "version": "1.0.0",
   "description": "A simple GraphQL server",
   "main": "server.js",
   "scripts": {
     "start": "nodemon ./server.js --exec babel-node -e js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-server": "babel -d ./build ./src -s",
+    "clean": "rm -rf build && mkdir build",
+    "build": "npm run clean && npm run build-server"
   },
   "author": "",
   "license": "MIT",
@@ -24,6 +27,7 @@
     "graphql-server-express": "^0.6.0",
     "graphql-tools": "^0.10.1",
     "node-fetch": "^2.1.2",
+    "regenerator-runtime": "^0.12.0",
     "xml2js": "^0.4.19"
   }
 }

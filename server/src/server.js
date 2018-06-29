@@ -1,4 +1,5 @@
 
+import "regenerator-runtime/runtime";
 import express from 'express';
 import cors from 'cors';
 import {
@@ -7,7 +8,7 @@ import {
 } from 'graphql-server-express';
 import bodyParser from 'body-parser';
 
-import { schema } from './src/schema';
+import { schema } from './schema';
 
 const PORT = process.env.PORT || 4000;
 const server = express();
